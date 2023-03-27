@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toonfix/models/webtoon_model.dart';
 import 'package:toonfix/services/api_service.dart';
+import 'package:toonfix/widgets/webtoon_widget.dart';
 
 class HomeScreen1 extends StatelessWidget {
   HomeScreen1({super.key});
@@ -50,13 +51,15 @@ class HomeScreen1 extends StatelessWidget {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: snapshot.data!.length,
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       itemBuilder: (context, index) {
         //List -> index로만 접근 가능
         print(index);
         var webtoon = snapshot.data![index];
-        return Column(
-          children: [Image.network(webtoon.thumb), headers: const {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",},
- Text(webtoon.title)],
+        return Webtoon(
+          title: webtoon.title,
+          thumb: webtoon.thumb,
+          id: webtoon.id,
         );
       },
       separatorBuilder: (context, index) => const SizedBox(
